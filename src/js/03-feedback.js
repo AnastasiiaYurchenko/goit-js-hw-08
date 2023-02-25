@@ -38,14 +38,14 @@ const refs = {
 //     }
 // }
 
-// populateTextarea();
 
-const formData = {};
+let formData = {};
+// populateTextarea();
 
 refs.form.addEventListener("submit", onFormSubmit);
 // refs.textarea.addEventListener("input", throttle(onTextareaInput, 500));
 
-refs.form.addEventListener("input", onFormInput);
+refs.form.addEventListener("input", throttle(onFormInput, 500));
 
 function onFormInput(evt) {
     console.log(evt.target.name);
@@ -62,8 +62,8 @@ function onFormInput(evt) {
     if (savedMessage) {
         refs.textarea.value = parcedMessage.message;
         console.log(refs.textarea.value);
-        refs.email.textContent = parcedMessage.email;
-        console.log(refs.email.textContent);
+        refs.email.value = parcedMessage.email;
+        console.log(refs.email.value);
     }
     
 
@@ -71,7 +71,8 @@ function onFormInput(evt) {
 
 function onFormSubmit(evt) {
     evt.preventDefault();
-    console.log("Отправка формы");
+    // console.log("Отправка формы");
+    console.log("Отправка формы", formData);
     evt.currentTarget.reset();
     localStorage.removeItem(STORAGE_KEY);
 };
@@ -90,4 +91,5 @@ function onFormSubmit(evt) {
 //     //     // console.log(savedMessage);
 //     //     refs.textarea.value = savedMessage;
 //     // }
+
 // }
